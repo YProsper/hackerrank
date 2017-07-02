@@ -22,7 +22,7 @@ func nbDiv(n int) int {
 	return result
 }
 
-// AntiprimeNumber...
+// AntiprimeNumber go!
 func AntiprimeNumber(n int, ints []int) {
 	champion, p := 0, 0
 	a := make([]int, 10000)

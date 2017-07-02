@@ -19,7 +19,7 @@ type pair struct {
 	id, cost int
 }
 
-// sort array of pairs by distance
+// ByDistance sort array of pairs by distance
 type ByDistance []pair
 
 func (b ByDistance) Len() int {
@@ -73,6 +73,7 @@ func dfs(to square, dirties *[]square, distances *[][]pair, nb int, visited *[]b
 	return result
 }
 
+// Botclean bla bla
 func Botclean(bx, by, h, w int, b [][]string) string {
 	fmt.Println("botclean", bx, by)
 

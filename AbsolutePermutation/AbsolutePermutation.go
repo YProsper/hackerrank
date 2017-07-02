@@ -1,4 +1,4 @@
-package exercices
+package main
 
 import (
 	"bufio"
@@ -74,4 +74,8 @@ func AbsolutePermutation(inputFile, outputFile string) {
 			fmt.Println("")
 		}
 	}
+}
+
+func main() {
+	AbsolutePermutation(os.Args[1], os.Args[2])
 }

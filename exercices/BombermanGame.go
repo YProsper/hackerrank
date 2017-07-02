@@ -11,7 +11,7 @@ func fillBombs(a []int, R, C int) {
 	for y := 0; y < R; y++ {
 		for x := 0; x < C; x++ {
 			if a[y*C+x] == -1 {
-				a[y*C+x] = 2
+				a[y*C+x] = 3
 			}
 		}
 	}
@@ -19,7 +19,7 @@ func fillBombs(a []int, R, C int) {
 
 func updateBombs(a []int) {
 	for i, v := range a {
-		if v != -1 && v > 0 {
+		if v > 0 {
 			a[i]--
 		}
 	}
@@ -63,7 +63,8 @@ func toString(a []int, R, C int) string {
 			if a[y*C+x] == -1 {
 				b.WriteRune('.')
 			} else {
-				b.WriteRune('O')
+				b.WriteRune('0')
+				//b.WriteString(strconv.Itoa(a[y*C+x]))
 			}
 		}
 		b.WriteString("\n")
@@ -91,7 +92,7 @@ func readBombs(scanner *bufio.Scanner, R, C int) []int {
 			case '.':
 				a[i*C+j] = -1
 			case 'O':
-				a[i*C+j] = 2
+				a[i*C+j] = 3
 			}
 		}
 	}
@@ -123,25 +124,41 @@ func BombermanGame(inputFile, outputFile string) {
 
 	a := readBombs(scanner, R, C)
 	expected := readBombs(scannerOutput, R, C)
-
+	//printBombs(a, R, C)
+	//fmt.Printf("Second 1: nothing\n")
 	updateBombs(a)
-	for i := 1; i <= N; i++ {
+	//printBombs(a, R, C)
+	if N%2 == 0 {
+		fillBombs(a, R, C)
+		printBombs(a, R, C)
+		return
+	}
+
+	for i := 2; i <= N; i++ {
+		updateBombs(a)
 		switch i % 2 {
-		case 0:
-			{
-				detonateBombs(a, R, C)
-			}
 		case 1:
 			{
+				//			fmt.Printf("Second %d,%d: detonate\n", i, i%2)
+				detonateBombs(a, R, C)
+				//		printBombs(a, R, C)
+			}
+		case 0:
+			{
+				//			fmt.Printf("Second %d,%d: plants\n", i, i%2)
 				fillBombs(a, R, C)
+				//		printBombs(a, R, C)
 			}
 		}
-		updateBombs(a)
+
+		fmt.Printf("Second %d ---------\n", i)
+		printBombs(a, R, C)
 	}
 
 	s1 := toString(a, R, C)
 	s2 := toString(expected, R, C)
-	fmt.Println(s1 == s2)
+
 	//printBombs(a, R, C)
+	fmt.Println(s1 == s2)
 	//printBombs(expected, R, C)
 }
